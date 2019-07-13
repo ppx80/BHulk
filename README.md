@@ -17,6 +17,16 @@ var update = BHulk<Order>
                 .For(Enumerable.Range(1,10000).ToArray())
                 .InStepOf(1000);
 
-var sql = await update.ExecuteAsync();
-            
+var sql = await update.ExecuteAsync();      
+```
+Uses a predicate for searching the primary keys and then perform the update in 1000-line steps at a time
+```csharp
+var update = BHulk<Order>
+                .UseContext(() => ContextFactory())
+                .Set(o => o.Status, OrderStatus.Executed)
+                .Set(o => o.ModifiedDate, DateTime.UtcNow)
+                .For(o => o.Status == OrderStatus.Pending)
+                .InStepOf(1000);
+
+var sql = await update.ExecuteAsync();      
 ```
