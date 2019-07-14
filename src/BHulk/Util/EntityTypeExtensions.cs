@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -13,6 +10,6 @@ namespace BHulk.Util
             entityType.Relational().TableName;
 
         internal static IProperty GetPrimaryKey(this IEntityType entityType) =>
-            entityType.FindPrimaryKey().Properties.First();
+            entityType.FindPrimaryKey()?.Properties.First();
     }
 }
